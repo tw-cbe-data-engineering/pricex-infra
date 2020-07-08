@@ -1,6 +1,6 @@
 version: '3'
 services:
-  jobmanager:
+  flink-jobmanager:
     image: flink
     expose:
       - "6123"
@@ -10,7 +10,7 @@ services:
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
-  taskmanager:
+  flink-taskmanager:
     image: flink
     expose:
       - "6121"
@@ -26,3 +26,6 @@ services:
   product-consumer:
     build:
       context: ../../product-consumer
+    depends_on:
+      - flink-jobmanager
+      - flink-taskmanager
