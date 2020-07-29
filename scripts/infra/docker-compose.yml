@@ -8,7 +8,7 @@ services:
       - "8081:8081"
     command: jobmanager
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=flink-jobmanager
 
   flink-taskmanager:
     image: flink
@@ -16,16 +16,15 @@ services:
       - "6121"
       - "6122"
     depends_on:
-      - jobmanager
+      - flink-jobmanager
     command: taskmanager
     links:
-      - "jobmanager:jobmanager"
+      - "flink-jobmanager:flink-jobmanager"
     environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - JOB_MANAGER_RPC_ADDRESS=flink-jobmanager
 
   product-consumer:
     build:
-      context: ../../product-consumer
+      context: product-consumer
     depends_on:
-      - flink-jobmanager
       - flink-taskmanager
