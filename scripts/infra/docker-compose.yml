@@ -79,6 +79,16 @@ services:
     ports:
       - "8080:8080"
 
+  apachepulsar-standalone:
+    hostname: apachepulsar-standalone
+    image: apachepulsar/pulsar:2.6.0
+    ports:
+      - 9000:8080
+      - 6650:6650
+    environment:
+      PULSAR_MEM: " -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    command: bin/pulsar standalone
+
 volumes:
   namenode:
   datanode:
