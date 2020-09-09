@@ -89,6 +89,19 @@ services:
       PULSAR_MEM: " -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
     command: bin/pulsar standalone
 
+  aerospikedb:
+    image: aerospike
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "3002:3002"
+      - "3003:3003"
+    volumes:
+      - ./aerospike:/opt/aerospike/etc
+      - aerospike:/opt/aerospike/data
+    command: ["asd","--foreground","--config-file", "/opt/aerospike/etc/aerospike.conf"]
+
 volumes:
   namenode:
   datanode:
+  aerospike:
